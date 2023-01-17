@@ -1,90 +1,46 @@
-# Xcode
-#
-# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+//Proje Tanımı: 3 adet dizi ekledim tabiki bu sayı arttırılabilir. Label üzerinden soru sorarız cevap doğru 
+// ise doğru buttonuna yanlış ise yanlış button a basarız.Ardından bastıktan sonra sorumuz değişir başka soruya geçeriz.
+// bu buttonlar a istediğiniz kadar basabilirsiniz kessinlikle kodun çökme olasılığı yoktur.
+// Ne kadar eklerseniz soru o kadar faydalı olabilecek bir uygulama.
+import UIKit
 
-## User settings
-xcuserdata/
-
-## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
-*.xcscmblueprint
-*.xccheckout
-
-## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
-build/
-DerivedData/
-*.moved-aside
-*.pbxuser
-!default.pbxuser
-*.mode1v3
-!default.mode1v3
-*.mode2v3
-!default.mode2v3
-*.perspectivev3
-!default.perspectivev3
-
-## Obj-C/Swift specific
-*.hmap
-
-## App packaging
-*.ipa
-*.dSYM.zip
-*.dSYM
-
-## Playgrounds
-timeline.xctimeline
-playground.xcworkspace
-
-# Swift Package Manager
-#
-# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
-# Packages/
-# Package.pins
-# Package.resolved
-# *.xcodeproj
-#
-# Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
-# hence it is not needed unless you have added a package configuration file to your project
-# .swiftpm
-
-.build/
-
-# CocoaPods
-#
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-#
-# Pods/
-#
-# Add this line if you want to avoid checking in source code from the Xcode workspace
-# *.xcworkspace
-
-# Carthage
-#
-# Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
-
-Carthage/Build/
-
-# Accio dependency management
-Dependencies/
-.accio/
-
-# fastlane
-#
-# It is recommended to not store the screenshots in the git repo.
-# Instead, use fastlane to re-generate the screenshots whenever they are needed.
-# For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/#source-control
-
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots/**/*.png
-fastlane/test_output
-
-# Code Injection
-#
-# After new code Injection tools there's a generated folder /iOSInjectionProject
-# https://github.com/johnno1962/injectionforxcode
+class ViewController: UIViewController {
+    
+    @IBOutlet weak var questionLabel: UILabel!
+    @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var trueButton: UIButton!
+    @IBOutlet weak var falseButton: UIButton!
+    
+    let quiz = [
+            ["2 ile 4 ün toplamı 6 dır.","Evet"],
+            ["Bir kıza çıkma teklifi edecek özgüvenin yok","Hayır"],
+           ["Kız Beni Seviyor mu","Hayır"]
+    ]
+    var questionNumber = 0
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        updateUI()
+    }
+    @IBAction func answerButtonPressed(_ sender:UIButton){
+        
+        let userAnswer = sender.currentTitle
+        let actualAnswer = quiz[questionNumber][1]
+        
+        if userAnswer == actualAnswer{
+            print("Evet")
+        }else{
+            print("Hayır")
+        }
+        if questionNumber + 1 < quiz.count{
+            questionNumber += 1
+        }else{
+            questionNumber = 0
+        }
+        updateUI()
+    }
+    func updateUI(){
+        questionLabel.text = quiz[questionNumber][0]
+    }
+}
 
 iOSInjectionProject/
